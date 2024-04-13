@@ -1,12 +1,9 @@
-import Header from "../../components/Header";
-import Summary from "../../components/Summary";
-import SearchForm from "./SearchForm";
-import {
-  TransactionsContainer,
-  TransactionsTable,
-  PriceHighLight,
-} from "./styles";
-import { useTransactions } from "../../contexts/TransactionsContext";
+import Header from '../../components/Header';
+import Summary from '../../components/Summary';
+import { useTransactions } from '../../contexts/TransactionsContext';
+import { dateFormatter, priceFormatter } from '../../utils/formatter';
+import SearchForm from './SearchForm';
+import { PriceHighLight, TransactionsContainer, TransactionsTable } from './styles';
 
 const Transactions = () => {
   const { transactions } = useTransactions();
@@ -27,10 +24,14 @@ const Transactions = () => {
                 <tr key={transaction.id}>
                   <td width={"50%"}>{transaction.description}</td>
                   <PriceHighLight variant={transaction.type}>
-                    {transaction.price}
+                    {transaction.type === "outcome" && "- "}
+
+                    {priceFormatter.format(transaction.price)}
                   </PriceHighLight>
                   <td>{transaction.category}</td>
-                  <td>{transaction.createdAt}</td>
+                  <td>
+                    {dateFormatter.format(new Date(transaction.createdAt))}
+                  </td>
                 </tr>
               );
             })}
