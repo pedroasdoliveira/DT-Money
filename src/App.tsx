@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { ThemeProvider } from "styled-components";
-import { defaultTheme } from "./styles/themes/default";
-import { GlobalStyle } from "./styles/global";
-import Transactions from "./pages/Transactions";
-import { TransactionsProvider } from "./contexts/TransactionsContext";
+import { ThemeProvider } from 'styled-components'
+import { defaultTheme } from './styles/themes/default'
+import { GlobalStyle } from './styles/global'
+import Transactions from './pages/Transactions'
+import { TransactionsProvider } from './contexts/TransactionsContext'
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
         <Transactions />
       </TransactionsProvider>
     </ThemeProvider>
-  );
+  )
 }
 
-export default App;
+export default App

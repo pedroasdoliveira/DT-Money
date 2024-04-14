@@ -1,28 +1,44 @@
 {
-    "transactions": [
-        {
-            "id": 1,
-            "description": "Desenvolvimento de site",
-            "type": "income",
-            "category": "Venda",
-            "price": 14000,
-            "createdAt": "2024-04-13T21:25:13.507Z"
-        },
-        {
-          "id": 2,
-          "description": "Hamburger",
-          "type": "outcome",
-          "category": "Alimentação",
-          "price": 50,
-          "createdAt": "2024-04-13T21:30:13.507Z"
-        },
-        {
-          "id": 3,
-          "description": "Aluguel do apartamento",
-          "type": "outcome",
-          "category": "Casa",
-          "price": 1200,
-          "createdAt": "2024-04-13T21:45:13.507Z"
-        }
-    ]
+  "transactions": [
+    {
+      "id": 1,
+      "description": "Desenvolvimento de site",
+      "type": "income",
+      "category": "Venda",
+      "price": 14000,
+      "createdAt": "2024-04-13T21:25:13.507Z"
+    },
+    {
+      "id": 2,
+      "description": "Hamburger",
+      "type": "outcome",
+      "category": "Alimentação",
+      "price": 50,
+      "createdAt": "2024-04-13T21:30:13.507Z"
+    },
+    {
+      "id": 3,
+      "description": "Aluguel do apartamento",
+      "type": "outcome",
+      "category": "Casa",
+      "price": 1200,
+      "createdAt": "2024-04-13T21:45:13.507Z"
+    },
+    {
+      "description": "Freelancer",
+      "category": "Venda",
+      "price": 3500,
+      "type": "income",
+      "createdAt": "2024-04-14T22:18:05.961Z",
+      "id": 4
+    },
+    {
+      "description": "Pastel de Carne com queijo",
+      "category": "Alimentação",
+      "price": 15,
+      "type": "outcome",
+      "createdAt": "2024-04-14T22:35:46.960Z",
+      "id": 5
+    }
+  ]
 }
