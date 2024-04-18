@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { zodResolver } from '@hookform/resolvers/zod'
 import { MagnifyingGlass } from 'phosphor-react'
@@ -5,7 +6,26 @@ import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 
 import { SearchFormContainer } from './styles'
-import { useTransactions } from '../../../contexts/TransactionsContext'
+import { TransactionsContext } from '../../../contexts/TransactionsContext'
+import { useContextSelector } from 'use-context-selector'
+
+/**
+ * Por que que um componente renderiza?
+ * 
+ * - hooks changed (mudou estado, contexto, reducer);
+ * - props changed (mudou propriedades);
+ * - parent rerendered (componente pai renderizou);
+ * 
+ * Qual o fluxo de renderização?
+ * 1. O react recria o HTML da interface daquele componente
+ * 2. Compara a versão do HTML recriada com a versão anterior
+ * 3. SE mudou algo, ele reescreve o HTML
+ * 
+ * Memo:
+ * 0. hooks changed, props changed (deep comparison);
+ * 0.1 comparar a versão anterior dos hooks e props;
+ * 0.2 SE mudou algo, ele vai permitir a nova renderização;
+ */
 
 const searchFormSchema = z.object({
   query: z.string(),
@@ -14,7 +34,12 @@ const searchFormSchema = z.object({
 type searchFormInputs = z.infer<typeof searchFormSchema>
 
 const SearchForm = () => {
-  const { fetchTransactions } = useTransactions()
+  const fetchTransactions = useContextSelector(
+    TransactionsContext,
+    (context) => {
+      return context.fetchTransactions
+    },
+  )
 
   const {
     register,

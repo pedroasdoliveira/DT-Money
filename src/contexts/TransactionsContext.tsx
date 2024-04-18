@@ -1,12 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from 'react'
+import { ReactNode, useCallback, useEffect, useState } from 'react'
 import { api } from '../lib/axios'
+import { createContext } from 'use-context-selector'
 
 interface ITransaction {
   id: number
@@ -34,14 +29,14 @@ interface ITransactionProviderProps {
   children: ReactNode
 }
 
-const TransactionsContext = createContext({} as TransactionContextType)
+export const TransactionsContext = createContext({} as TransactionContextType)
 
 export const TransactionsProvider = ({
   children,
 }: ITransactionProviderProps) => {
   const [transactions, setTransactions] = useState<ITransaction[]>([])
 
-  const fetchTransactions = async (query?: string) => {
+  const fetchTransactions = useCallback(async (query?: string) => {
     const response = await api.get('transactions', {
       params: {
         _sort: 'createdAt',
@@ -51,25 +46,28 @@ export const TransactionsProvider = ({
     })
 
     setTransactions(response.data)
-  }
+  }, [])
 
-  const createTransaction = async (data: ICreateTransactionInput) => {
-    const { description, category, price, type } = data
+  const createTransaction = useCallback(
+    async (data: ICreateTransactionInput) => {
+      const { description, category, price, type } = data
 
-    const response = await api.post('transactions', {
-      description,
-      category,
-      price,
-      type,
-      createdAt: new Date(),
-    })
+      const response = await api.post('transactions', {
+        description,
+        category,
+        price,
+        type,
+        createdAt: new Date(),
+      })
 
-    setTransactions((state) => [response.data, ...state])
-  }
+      setTransactions((state) => [response.data, ...state])
+    },
+    [],
+  )
 
   useEffect(() => {
     fetchTransactions()
-  }, [])
+  }, [fetchTransactions])
 
   return (
     <TransactionsContext.Provider
@@ -80,13 +78,15 @@ export const TransactionsProvider = ({
   )
 }
 
-export const useTransactions = () => {
-  const context = useContext(TransactionsContext)
+// export const useTransactions = () => {
+//   const context = useContextSelector(TransactionsContext, (context) => {
+//     return context.createTransaction
+//   })
 
-  if (!context) {
-    throw new Error(
-      'useTransactions must be used within a TransactionsProvider',
-    )
-  }
-  return context
-}
+//   if (!context) {
+//     throw new Error(
+//       'useTransactions must be used within a TransactionsProvider',
+//     )
+//   }
+//   return context
+// }
